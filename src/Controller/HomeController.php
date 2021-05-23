@@ -2,19 +2,58 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Form\PostType;
+use App\Manager\PostManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @var PostManagerInterface
      */
-    public function index(): Response
+    private $postInterface;
+
+    /**
+     * HomeController constructor.
+     * @param PostManagerInterface $postInterface
+     */
+    public function __construct(PostManagerInterface $postInterface)
     {
+        $this->postInterface = $postInterface;
+    }
+
+    /**
+     * @Route("/", name="home", methods={"GET","POST"})
+     */
+    public function index(Request $request,Security $security): Response
+    {
+        $user =$security->getUser();
+
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setAuthor($user);
+            $post->setCreatedAt(new \DateTime('now'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('post_index');
+        }
+        $posts = $this->postInterface->listPost();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'posts' => $posts,
+            'post' =>$post,
+            'postForm' => $form->createView(),
         ]);
     }
+
+
 }

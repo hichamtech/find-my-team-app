@@ -40,12 +40,13 @@
                                     </a>
                                 </div>
                                 <div class="posts-section">
+                                    {% for post in posts %}
                                     <div class="post-bar">
                                         <div class="post_topbar">
                                             <div class="usy-dt">
                                                 <img src="images/resources/us-pic.png" alt="">
                                                 <div class="usy-name">
-                                                    <h3>Hicham Hassani</h3>
+                                                    <h3>{{ post.author.firstname }} {{ post.author.lastname }}</h3>
                                                     <span><img src="images/clock.png" alt="">3 min ago</span>
                                                 </div>
                                             </div>
@@ -62,8 +63,8 @@
                                         </div>
                                         <div class="epi-sec">
                                             <ul class="descp">
-                                                <li><img src="images/icon8.png" alt=""><span>Offre</span></li>
-                                                <li><img src="images/icon9.png" alt=""><span>Sale</span></li>
+                                                <li><img src="images/icon8.png" alt=""><span>{{ post.type.name }}</span></li>
+                                                <li><img src="images/icon9.png" alt=""><span>{{ post.city.name }}</span></li>
                                             </ul>
                                             <ul class="bk-links">
                                                 <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
@@ -71,13 +72,11 @@
                                         </div>
                                         <div class="job_descp">
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus
-                                                hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet
-                                                ... <a href="#" title="">view more</a></p>
+                                            <p>{{ post.description }}</p>
                                         </div>
 
                                     </div>
-
+                                    {% endfor %}
 
                                     <div class="process-comm">
                                         <div class="spinner">
@@ -101,33 +100,35 @@
         <div class="post-project">
             <h3>Postuler</h3>
             <div class="post-project-fields">
+                {{ form_start(postForm) }}
                 <form>
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="text" name="title" placeholder="Titre">
-                        </div>
-                        <div class="col-lg-12">
                             <div class="inp-field">
-                                <select>
+                               {#  <select>
                                     <option>Type</option>
                                     <option>Offre</option>
                                     <option>Demande</option>
-                                </select>
+                                </select>#}
+                                {{ form_row(postForm.type) }}
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="inp-field">
-                                <select>
+                              {#  <select>
                                     <option>Ville</option>
                                     <option>Rabat</option>
                                     <option>Sale</option>
                                     <option>Casa</option>
-                                </select>
+                                </select>#}
+                                {{ form_row(postForm.city) }}
                             </div>
                         </div>
 
                         <div class="col-lg-12">
-                            <textarea name="description" placeholder="Description"></textarea>
+                           {#  <textarea name="description" placeholder="Description"></textarea>#}
+                            {{ form_row(postForm.description) }}
+
                         </div>
                         <div class="col-lg-12">
                             <ul>
@@ -137,6 +138,7 @@
                         </div>
                     </div>
                 </form>
+                {{ form_end(postForm) }}
             </div>
             <a href="#" title=""><i class="la la-times-circle-o"></i></a>
         </div>
