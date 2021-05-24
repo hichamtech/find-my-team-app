@@ -32,7 +32,9 @@ class HomeController extends AbstractController
      */
     public function index(Request $request,Security $security): Response
     {
-        $user =$security->getUser();
+        $user = $security->getUser();
+
+        $posts = $this->postInterface->listPost();
 
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -41,17 +43,41 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setAuthor($user);
             $post->setCreatedAt(new \DateTime('now'));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+
+        return $this->render('home/index.html.twig', [
+            'posts' => $posts,
+            'postForm'=>$form->createView()
+
+        ]);
+    }
+    /**
+     * @Route("/new/post", name="save_post", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
 
             return $this->redirectToRoute('post_index');
         }
-        $posts = $this->postInterface->listPost();
-        return $this->render('home/index.html.twig', [
-            'posts' => $posts,
-            'post' =>$post,
-            'postForm' => $form->createView(),
+
+        return $this->render('post/new.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
         ]);
     }
 

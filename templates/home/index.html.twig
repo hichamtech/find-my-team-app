@@ -100,45 +100,8 @@
         <div class="post-project">
             <h3>Postuler</h3>
             <div class="post-project-fields">
-                {{ form_start(postForm) }}
-                <form>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="inp-field">
-                               {#  <select>
-                                    <option>Type</option>
-                                    <option>Offre</option>
-                                    <option>Demande</option>
-                                </select>#}
-                                {{ form_row(postForm.type) }}
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="inp-field">
-                              {#  <select>
-                                    <option>Ville</option>
-                                    <option>Rabat</option>
-                                    <option>Sale</option>
-                                    <option>Casa</option>
-                                </select>#}
-                                {{ form_row(postForm.city) }}
-                            </div>
-                        </div>
+                {% include  'home/new_post.html.twig'  %}
 
-                        <div class="col-lg-12">
-                           {#  <textarea name="description" placeholder="Description"></textarea>#}
-                            {{ form_row(postForm.description) }}
-
-                        </div>
-                        <div class="col-lg-12">
-                            <ul>
-                                <li><button class="active" type="submit" value="post">Postuler</button></li>
-                                <li><a href="#" title="">Annuler</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
-                {{ form_end(postForm) }}
             </div>
             <a href="#" title=""><i class="la la-times-circle-o"></i></a>
         </div>
