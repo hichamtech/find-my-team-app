@@ -4,35 +4,25 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="inp-field">
-                {#  <select>
-                                    <option>Type</option>
-                                    <option>Offre</option>
-                                    <option>Demande</option>
-                                </select>#}
                 {{ form_row(postForm.type) }}
             </div>
         </div>
         <div class="col-lg-12">
             <div class="inp-field">
-                {#  <select>
-                                    <option>Ville</option>
-                                    <option>Rabat</option>
-                                    <option>Sale</option>
-                                    <option>Casa</option>
-                                </select>#}
                 {{ form_row(postForm.city) }}
             </div>
         </div>
 
         <div class="col-lg-12">
-            {#  <textarea name="description" placeholder="Description"></textarea>#}
             {{ form_row(postForm.description) }}
 
         </div>
         <div class="col-lg-12">
             <ul>
                 {{ form_rest(postForm) }}
-                <li><button class="active" type="submit" value="post">Postuler</button></li>
+                <li>
+                    <button class="active" type="submit" value="post">Postuler</button>
+                </li>
                 <li><a href="#" title="">Annuler</a></li>
             </ul>
         </div>

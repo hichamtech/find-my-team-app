@@ -58,28 +58,6 @@ class HomeController extends AbstractController
 
         ]);
     }
-    /**
-     * @Route("/new/post", name="save_post", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('post_index');
-        }
-
-        return $this->render('post/new.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
-    }
 
 
 }
