@@ -30,10 +30,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home", methods={"GET","POST"})
      */
-    public function index(Request $request,Security $security): Response
+    public function index(Request $request): Response
     {
-        $user = $security->getUser();
-
         $posts = $this->postInterface->listPost();
 
         $post = new Post();
@@ -41,8 +39,9 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setAuthor($user);
-            $post->setCreatedAt(new \DateTime('now'));
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            $post->setAuthor($this->getUser());
+            $post->setCreatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
@@ -50,7 +49,6 @@ class HomeController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
-
 
         return $this->render('home/index.html.twig', [
             'posts' => $posts,

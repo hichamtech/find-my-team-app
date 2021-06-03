@@ -29,6 +29,12 @@ class City
      */
     private $posts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="cities")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -84,6 +90,18 @@ class City
     public function __toString()
     {
        return $this->name;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
     }
 
 }
