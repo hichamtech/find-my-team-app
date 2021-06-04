@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\SearchData;
+use App\Entity\SearchPost;
+use App\Form\PostSearchType;
 use App\Form\PostType;
+use App\Form\SearchForm;
 use App\Manager\PostManagerInterface;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,23 +21,32 @@ class HomeController extends AbstractController
     /**
      * @var PostManagerInterface
      */
-    private $postInterface;
+
 
     /**
      * HomeController constructor.
      * @param PostManagerInterface $postInterface
      */
-    public function __construct(PostManagerInterface $postInterface)
+    public function __construct()
     {
-        $this->postInterface = $postInterface;
     }
 
     /**
      * @Route("/", name="home", methods={"GET","POST"})
      */
-    public function index(Request $request): Response
+    public function index(Request $request,PostRepository $postRepository): Response
     {
-        $posts = $this->postInterface->listPost();
+
+        $searchPost = new SearchPost();
+        $searchPostForm = $this->createForm(PostSearchType::class,$searchPost);
+        $searchPostForm->handleRequest($request);
+
+        $data = new SearchData();
+        $formData = $this->createForm(SearchForm::class, $data);
+        $formData->handleRequest($request);
+        $posts = $postRepository->findSearch($data);
+
+
 
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -52,7 +66,9 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'posts' => $posts,
-            'postForm'=>$form->createView()
+            'postForm'=>$form->createView(),
+            'searchPostForm' => $searchPostForm->createView(),
+            'formData' =>$formData->createView()
 
         ]);
     }
