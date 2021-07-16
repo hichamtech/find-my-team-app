@@ -1,5 +1,5 @@
-{% extends 'base.html.twig' %}
-
+ {% extends 'base.html.twig' %}
+{#
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
@@ -33,10 +33,75 @@
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
         </div>
-    #}
+
 
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
 </form>
-{% endblock %}
+
+#}
+ {% block body %}
+<div class="wrapper">
+    <div class="sign-in-page">
+        <div class="signin-popup">
+            <div class="signin-pop">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="cmp-info">
+                            <div class="cm-logo">
+                                <img src="images/soccer_logo.png" alt="">
+                                <p>Aji nqsru, is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
+                            </div>
+                            <img src="images/cm-main-img.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="login-sec">
+                            <ul class="sign-control">
+                                <li data-tab="tab-1" class="current"><a href="#" title="">Connexion</a></li>
+
+                            </ul>
+                            <div class="sign_in_sec current" id="tab-1">
+                                <h3>Connexion</h3>
+                                <form method="post">
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-12 no-pdd">
+                                            <div class="sn-field">
+                                                {#  <input type="text" name="username" placeholder="Username">#}
+                                                <input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail"  required autofocus>
+
+                                                <i class="la la-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 no-pdd">
+                                            <div class="sn-field">
+                                               {# <input type="password" name="password" placeholder="Password">#}
+                                                <input type="password" name="password" id="inputPassword" placeholder="Mot de Passe"  required>
+
+                                                <i class="la la-lock"></i>
+                                                <input type="hidden" name="_csrf_token"
+                                                       value="{{ csrf_token('authenticate') }}"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 no-pdd">
+                                            <button type="submit" value="submit">Connexion</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+ {% endblock %}

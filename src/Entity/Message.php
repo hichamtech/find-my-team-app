@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
-use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MessageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\Entity(repositoryClass=MessageRepository::class)
  */
-class Post
+class Message
 {
     /**
      * @ORM\Id
@@ -31,22 +33,19 @@ class Post
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="messages")
      */
-    private $author;
+    private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PostType::class, inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
      */
-    private $type;
+    private $receiver;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $city;
+    public function __construct()
+    {
+        $this->sender = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,38 +76,38 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?User
+    /**
+     * @return Collection|User[]
+     */
+    public function getSender(): Collection
     {
-        return $this->author;
+        return $this->sender;
     }
 
-    public function setAuthor(?User $author): self
+    public function addSender(User $sender): self
     {
-        $this->author = $author;
+        if (!$this->sender->contains($sender)) {
+            $this->sender[] = $sender;
+        }
 
         return $this;
     }
 
-    public function getType(): ?PostType
+    public function removeSender(User $sender): self
     {
-        return $this->type;
-    }
-
-    public function setType(?PostType $type): self
-    {
-        $this->type = $type;
+        $this->sender->removeElement($sender);
 
         return $this;
     }
 
-    public function getCity(): ?City
+    public function getReceiver(): ?User
     {
-        return $this->city;
+        return $this->receiver;
     }
 
-    public function setCity(?City $city): self
+    public function setReceiver(?User $receiver): self
     {
-        $this->city = $city;
+        $this->receiver = $receiver;
 
         return $this;
     }

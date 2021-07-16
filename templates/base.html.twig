@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Aji Nqessro</title>
@@ -17,10 +17,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/slick/slick-theme.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
+    />
+
 </head>
 <body>
 <!-- Start wrapper -->
-<div class="wrapper">
+<div class="wrapper" >
     <!--Start Header -->
     <header>
         <div class="container">
@@ -37,7 +42,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" title="">
+                            <a href="" title="">
                                 <span><img src="images/icon6.png" alt=""></span>
                                 Messages
                             </a>
@@ -50,7 +55,7 @@
                         </li>
                         <li>
                             <a href="{{ path('app_login') }}" title="">
-                                <span><img src="images/icon4.png" alt=""></span>
+                                <span><img src="images/icon6.png" alt=""></span>
                                 Connexion
                             </a>
                         </li>
@@ -58,7 +63,9 @@
 
                     </ul>
                 </nav>
-
+                <div class="menu-btn">
+                    <a href="#" title=""><i class="fa fa-bars"></i></a>
+                </div>
             </div>
         </div>
     </header>
@@ -75,5 +82,20 @@
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-city-autocomplete').autocomplete({hint: false}, [
+            {
+                source: function(query, cb) {
+                    cb([
+                        {value: 'foo'},
+                        {value: 'bar'}
+                    ])
+                }
+            }
+        ]);
+    });
+</script>
 </body>
 </html>

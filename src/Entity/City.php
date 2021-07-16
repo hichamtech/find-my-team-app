@@ -5,9 +5,26 @@ namespace App\Entity;
 use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ *  * @ApiResource(
+ *     normalizationContext={"groups"={"city:read"}},
+ *     denormalizationContext={"groups"={"city:write"}},
+ *     attributes={
+ *      "pagination_items_per_page"=500,
+ *         "formats"={"jsonld", "json"}
+ *     },
+ *     itemOperations={
+ *         "get"
+ *     },
+ *     collectionOperations={
+ *         "get"
+ *     },
+ * )
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=CityRepository::class)
  */
 class City
@@ -16,16 +33,20 @@ class City
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"city:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"city:read"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Post::class, mappedBy="city")
+     * @Groups({"city:read"})
+     *
      */
     private $posts;
 

@@ -23,12 +23,16 @@ class SearchForm extends AbstractType
                 'label' => false,
                 'required' => false,
                 'class' => \App\Entity\PostType::class,
+                'placeholder'=> 'Type'
+
 
             ])
             ->add('city', EntityType::class, [
                 'label' => false,
                 'required' => false,
                 'class' => City::class,
+                'placeholder'=> 'Ville',
+
 
             ])
         ;

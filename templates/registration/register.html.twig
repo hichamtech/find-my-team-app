@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{#  {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
@@ -21,3 +21,85 @@
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
+#}
+{% extends 'base.html.twig' %}
+
+ {% block body %}
+     <div class="wrapper">
+         <div class="sign-in-page">
+             <div class="signin-popup">
+                 <div class="signin-pop">
+                     <div class="row">
+                         <div class="col-lg-6">
+                             <div class="cmp-info">
+                                 <div class="cm-logo">
+                                     <img src="images/soccer_logo.png" alt="logo">
+                                     <p>Aji nqsro, is a global soccer platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="login-sec">
+
+                                 <div class="sign_in_sec current" id="tab-2">
+                                     <ul class="sign-control">
+                                         <li data-tab="tab-1" class="current"><a href="#" title="">Inscription</a></li>
+
+                                     </ul>
+                                     <div class="dff-tab current" id="tab-3">
+                                         <h3>Inscription</h3>
+                                         {{ form_start(registrationForm) }}
+                                             <div class="row">
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <div class="sn-field">
+                                                         {{ form_widget(registrationForm.firstname) }}
+                                                         <i class="la la-user"></i>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <div class="sn-field">
+                                                         {{ form_widget(registrationForm.lastname) }}
+                                                         <i class="la la-user"></i>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <div class="sn-field">
+                                                         {{ form_widget(registrationForm.phone) }}
+                                                         <i class="la la-phone"></i>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <div class="sn-field">
+                                                         {{ form_widget(registrationForm.email) }}
+                                                         <i class="la la-envelope"></i>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <div class="sn-field">
+                                                         {{ form_widget(registrationForm.plainPassword) }}
+                                                         <i class="la la-lock"></i>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col-lg-12 no-pdd">
+                                                     <button type="submit" value="submit">
+                                                              S'inscrire <i class="la la-arrow-circle-right"></i>   </button>
+                                                 </div>
+                                             </div>
+                                         {{ form_end(registrationForm) }}
+                                         {% for flashError in app.flashes('verify_email_error') %}
+                                             <div class="col-lg-12 no-pdd alert alert-danger" role="alert">{{ flashError }}</div>
+                                         {% endfor %}
+                                     </div>
+
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ {% endblock %}
