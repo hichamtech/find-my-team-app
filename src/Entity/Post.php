@@ -52,7 +52,7 @@ class Post
     private $description;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"post:read"})
      */
     private $createdAt;

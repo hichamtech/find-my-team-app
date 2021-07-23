@@ -108,11 +108,6 @@ class City
         return $this;
     }
 
-    public function __toString()
-    {
-       return $this->name;
-    }
-
     public function getRegion(): ?Region
     {
         return $this->region;
@@ -123,6 +118,11 @@ class City
         $this->region = $region;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
 }
