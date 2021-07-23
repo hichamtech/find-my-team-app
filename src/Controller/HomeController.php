@@ -41,7 +41,7 @@ class HomeController extends AbstractController
 
             $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $post->setAuthor($this->getUser());
-            $post->setCreatedAt(new \DateTime());
+          //  $post->setCreatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
