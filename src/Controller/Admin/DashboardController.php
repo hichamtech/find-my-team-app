@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\City;
 use App\Entity\Post;
 use App\Entity\PostType;
+use App\Entity\Region;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Post', 'fas fa-dollar-sign', Post::class);
         yield MenuItem::linkToCrud('Post Type', 'fas fa-home', PostType::class);
         yield MenuItem::linkToCrud('City', 'fas fa-home', City::class);
+        yield MenuItem::linkToCrud('Region', 'fas fa-home', Region::class);
 
       
     }
