@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use DateTimeImmutable;
 
 /**
  *  @ApiResource(
@@ -85,7 +86,10 @@ class Post
      */
     private $updatedAt;
 
-
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable('now');
+    }
     public function getId(): ?int
     {
         return $this->id;
