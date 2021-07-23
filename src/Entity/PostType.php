@@ -6,11 +6,28 @@ use App\Repository\PostTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"postType:read"}},
+ *     denormalizationContext={"groups"={"postType:write"}},
+ *     attributes={
+ *      "pagination_items_per_page"=500,
+ *         "formats"={"jsonld", "json"}
+ *     },
+ *     itemOperations={
+ *        "get" = {
+ *                   "path"="/post/type/{id}"
+ *                },
+ *     },
+ *     collectionOperations={
+ *        "get" = {
+ *                   "path"="/post/type"
+ *                  },
+ *     },
+ * )
  * @ORM\Entity(repositoryClass=PostTypeRepository::class)
  */
 class PostType
@@ -19,11 +36,13 @@ class PostType
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"postType:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"postType:read"})
      */
     private $name;
 
@@ -88,5 +107,4 @@ class PostType
     {
        return $this->name;
     }
-
 }

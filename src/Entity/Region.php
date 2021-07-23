@@ -6,11 +6,25 @@ use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"region:read"}},
+ *     denormalizationContext={"groups"={"region:write"}},
+ *     attributes={
+ *      "pagination_items_per_page"=500,
+ *         "formats"={"jsonld", "json"}
+ *     },
+ *     itemOperations={
+ *        "get"
+ *     },
+ *     collectionOperations={
+ *        "get",
+ *     },
+ * )
+ *
  * @ORM\Entity(repositoryClass=RegionRepository::class)
  */
 class Region
@@ -19,11 +33,13 @@ class Region
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"region:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"region:read"})
      */
     private $region;
 

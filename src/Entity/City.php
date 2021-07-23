@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- *  * @ApiResource(
+ * @ApiResource(
  *     normalizationContext={"groups"={"city:read"}},
  *     denormalizationContext={"groups"={"city:write"}},
  *     attributes={
@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         "get"
  *     },
  * )
- * @ApiResource()
+ *
  * @ORM\Entity(repositoryClass=CityRepository::class)
  */
 class City
