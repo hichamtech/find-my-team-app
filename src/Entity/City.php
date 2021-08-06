@@ -33,13 +33,13 @@ class City
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"city:read"})
+     * @Groups({"city:read","post:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"city:read"})
+     * @Groups({"city:read","post:read"})
      */
     private $name;
 

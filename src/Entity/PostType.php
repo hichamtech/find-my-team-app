@@ -36,13 +36,13 @@ class PostType
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"postType:read"})
+     * @Groups({"postType:read","post:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"postType:read"})
+     * @Groups({"postType:read","post:read"})
      */
     private $name;
 

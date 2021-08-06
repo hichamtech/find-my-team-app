@@ -40,13 +40,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:read"})
+     * @Groups({"user:read","post:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user:read","user:write"})
+     * @Groups({"user:read","user:write","post:read"})
      */
     private $email;
 
@@ -64,19 +64,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"user:read","user:write"})
+     * @Groups({"user:read","user:write","post:read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"user:read","user:write"})
+     * @Groups({"user:read","user:write","post:read"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"user:read","user:write"})
+     * @Groups({"user:read","user:write","post:read"})
      */
     private $phone;
 
